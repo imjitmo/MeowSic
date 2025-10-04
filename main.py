@@ -1,23 +1,8 @@
 import os
-import threading
-from flask import Flask
 import discord
 from discord.ext import commands
 import yt_dlp
 import asyncio
-
-app = Flask(__name__)
-
-@app.route("/")
-def home():
-    return "Bot is running!"
-
-def run_flask():
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
-
-# Start Flask in background thread
-threading.Thread(target=run_flask).start()
 
 # ------------------------
 # SETTINGS
@@ -149,3 +134,4 @@ async def leave(ctx):
 # RUN BOT
 # ------------------------
 bot.run(TOKEN)
+
