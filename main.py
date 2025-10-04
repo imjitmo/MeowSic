@@ -125,4 +125,5 @@ async def leave(ctx):
 # ------------------------
 # RUN BOT
 # ------------------------
-bot.run(TOKEN)
+if __name__ == "__main__":  
+    bot.run(TOKEN)
