@@ -8,7 +8,7 @@ import asyncio
 # SETTINGS
 # ------------------------
 TOKEN = os.environ["DISCORD_TOKEN"]  # replace with your bot token
-ALLOWED_TEXT_CHANNEL_ID = os.environ["CHANNEL_ID"]  # replace with your text channel ID
+ALLOWED_TEXT_CHANNEL_ID =  984227820639236157 # replace with your text channel ID
 
 intents = discord.Intents.default()
 intents.message_content = True
