@@ -5,6 +5,11 @@ import discord
 from discord.ext import commands
 import yt_dlp
 import asyncio
+# ------------------------
+# SETTINGS
+# ------------------------
+TOKEN = os.environ["DISCORD_TOKEN"]  # replace with your bot token
+CHANNEL_ID = os.environ["CHANNEL_ID"]  # replace with your text channel ID
 
 app = Flask(__name__)
 
@@ -25,12 +30,6 @@ def run_discord():
     bot.run(os.getenv("DISCORD_TOKEN"))
 
 Thread(target=run_discord).start()
-
-# ------------------------
-# SETTINGS
-# ------------------------
-TOKEN = os.environ["DISCORD_TOKEN"]  # replace with your bot token
-ALLOWED_TEXT_CHANNEL_ID = os.environ["CHANNEL_ID"]  # replace with your text channel ID
 
 # ------------------------
 # YTDL SETTINGS
@@ -78,7 +77,7 @@ async def on_ready():
 # ------------------------
 @bot.command(name="play")
 async def play(ctx, *, query):
-    if ctx.channel.id != ALLOWED_TEXT_CHANNEL_ID:
+    if ctx.channel.id != CHANNEL_ID:
         await ctx.send("❌ You can only use music commands in the dedicated music channel.")
         return
 
@@ -103,7 +102,7 @@ async def play(ctx, *, query):
 
 @bot.command(name="pause")
 async def pause(ctx):
-    if ctx.channel.id != ALLOWED_TEXT_CHANNEL_ID:
+    if ctx.channel.id != CHANNEL_ID:
         return
     if ctx.voice_client and ctx.voice_client.is_playing():
         ctx.voice_client.pause()
@@ -112,7 +111,7 @@ async def pause(ctx):
 
 @bot.command(name="resume")
 async def resume(ctx):
-    if ctx.channel.id != ALLOWED_TEXT_CHANNEL_ID:
+    if ctx.channel.id != CHANNEL_ID:
         return
     if ctx.voice_client and ctx.voice_client.is_paused():
         ctx.voice_client.resume()
@@ -121,7 +120,7 @@ async def resume(ctx):
 
 @bot.command(name="stop")
 async def stop(ctx):
-    if ctx.channel.id != ALLOWED_TEXT_CHANNEL_ID:
+    if ctx.channel.id != CHANNEL_ID:
         return
     if ctx.voice_client:
         ctx.voice_client.stop()
@@ -130,7 +129,7 @@ async def stop(ctx):
 
 @bot.command(name="skip")
 async def skip(ctx):
-    if ctx.channel.id != ALLOWED_TEXT_CHANNEL_ID:
+    if ctx.channel.id != CHANNEL_ID:
         return
     if ctx.voice_client and ctx.voice_client.is_playing():
         ctx.voice_client.stop()
@@ -141,7 +140,7 @@ async def skip(ctx):
 
 @bot.command(name="leave")
 async def leave(ctx):
-    if ctx.channel.id != ALLOWED_TEXT_CHANNEL_ID:
+    if ctx.channel.id != CHANNEL_ID:
         return
     if ctx.voice_client:
         await ctx.voice_client.disconnect()
