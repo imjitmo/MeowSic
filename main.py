@@ -1,18 +1,36 @@
+from flask import Flask
+from threading import Thread
 import os
 import discord
 from discord.ext import commands
 import yt_dlp
 import asyncio
 
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Bot is running!"
+
+# Start Discord bot
+intents = discord.Intents.default()
+intents.message_content = True
+bot = commands.Bot(command_prefix="!", intents=intents)
+
+@bot.event
+async def on_ready():
+    print(f"✅ Logged in as {bot.user}")
+
+def run_discord():
+    bot.run(os.getenv("DISCORD_TOKEN"))
+
+Thread(target=run_discord).start()
+
 # ------------------------
 # SETTINGS
 # ------------------------
 TOKEN = os.environ["DISCORD_TOKEN"]  # replace with your bot token
 ALLOWED_TEXT_CHANNEL_ID = os.environ["CHANNEL_ID"]  # replace with your text channel ID
-
-intents = discord.Intents.default()
-intents.message_content = True
-bot = commands.Bot(command_prefix="!", intents=intents)
 
 # ------------------------
 # YTDL SETTINGS
@@ -134,4 +152,3 @@ async def leave(ctx):
 # RUN BOT
 # ------------------------
 bot.run(TOKEN)
-
