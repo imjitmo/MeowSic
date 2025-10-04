@@ -24,7 +24,6 @@ threading.Thread(target=run_flask).start()
 # ------------------------
 TOKEN = os.environ["DISCORD_TOKEN"]  # replace with your bot token
 ALLOWED_TEXT_CHANNEL_ID = os.environ["CHANNEL_ID"]  # replace with your text channel ID
-ALLOWED_TEXT_CHANNEL_ID_2 = os.environ["CHANNEL_ID_2"]
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -76,7 +75,7 @@ async def on_ready():
 # ------------------------
 @bot.command(name="play")
 async def play(ctx, *, query):
-    if ctx.channel.id != ALLOWED_TEXT_CHANNEL_ID or ctx.channel.id != ALLOWED_TEXT_CHANNEL_ID_2:
+    if ctx.channel.id != ALLOWED_TEXT_CHANNEL_ID:
         await ctx.send("❌ You can only use music commands in the dedicated music channel.")
         return
 
